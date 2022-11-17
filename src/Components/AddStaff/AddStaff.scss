@@ -1,0 +1,50 @@
+@import '../colors.scss';
+
+
+.addUser-title{
+    font-size: 30px;
+    color: $white;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 3%;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form-container-cu{
+    width: 60%;
+    color: rgb(255, 255, 255);
+    background-color: rgb(30, 132, 201);
+    margin-top: 2%;
+    padding: 30px;
+}
+
+.flex-form{
+
+    display: flex;
+    float: left;
+  justify-content: start;
+  width: 100%;
+
+}
+
+.input-container-cu{
+    background-color: brown;
+    width:100%;
+}
+
+.create-btn{
+  background-color: $white;
+  color: $light-blue;
+  width: 180px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 900;
+  border-radius: 7px;
+  cursor: pointer;
+}
