@@ -28,7 +28,9 @@
     "react-scripts": "^5.0.1",
     "sass": "^1.55.0",
     "url-encrypt": "^0.0.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "mkcert": "^1.5.1",
+    "nss": "^0.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
