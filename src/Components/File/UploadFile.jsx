@@ -1,17 +1,24 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./UploadFile.scss";
 import uploadImage from "../../Assets/upload.png";
 import Context from "../../ContextAPI/Context";
 import crypto from 'crypto-js';
+import { useNavigate } from 'react-router-dom';
 
 const UploadFile = () => {
-
+  const navigate = useNavigate();
   const [selectedFile, setFile] = useState('');
   const [base64file, setFilebase64] = useState('');
   const [err, setErr] = useState(false);
   const conText = useContext(Context)
 
 
+  useEffect(()=>{
+    if(localStorage?.getItem("userType") !== 'MANAGER'){
+      navigate('/')
+    }
+  })
+   
 
   const handleFile = (e) => {
     setFile(e.target.files[0])

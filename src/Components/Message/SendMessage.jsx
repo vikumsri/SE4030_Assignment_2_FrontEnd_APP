@@ -2,13 +2,19 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import "./SendMessage.scss";
 import crypto from 'crypto-js';
 import Context from "../../ContextAPI/Context";
+import { useNavigate } from 'react-router-dom';
 
 const SaveMessage = () => {
-
+  const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [validationErr, setValidationErr] = useState(true);
     
-
+  useEffect(()=>{
+    if(localStorage?.getItem("userType") !== 'MANAGER' && localStorage?.getItem("userType") !== 'WORKER'){
+      navigate('/')
+    }
+  })
+   
     const handleMsg = (e) => {
         let msg = e.target.value.trim();
         if (msg.length <= 0 ){

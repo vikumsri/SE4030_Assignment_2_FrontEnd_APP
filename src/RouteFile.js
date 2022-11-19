@@ -13,6 +13,7 @@ import LoginAdmin from './Components/LoginAdmin/LoginAdmin'
 
 const RouteFile = () => {
   const role = localStorage?.getItem("userType")
+  console.log(role)
   return (
     <BrowserRouter>
       <AppProvider>
@@ -21,9 +22,9 @@ const RouteFile = () => {
           <Route path='/' element={<Login />} />
           <Route path='/adminHome' element={<AddStaff /> } />
           <Route path='/home' element={<Home/>} />
-          <Route path='/sendmessage' element={role == 'MANAGER' || role == 'WORKER' ? <SaveMessage/> : <Login />} />
+          <Route path='/sendmessage' element={<SaveMessage/> } />
           <Route path='/loginAdmin' element={<LoginAdmin/>} />
-          <Route path='/uploadFile' element={role == 'MANAGER' ? <UploadFile/> : <Login />} />
+          <Route path='/uploadFile' element={<UploadFile/>} />
           
 
         </Routes>
