@@ -9,7 +9,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    if(localStorage.getItem('userType') === 'ADMIN'){
+    if(localStorage.getItem('userType') !== 'MANAGER' && localStorage.getItem('userType') !== 'WORKER'){
       navigate('/')
     }
   })
@@ -20,11 +20,11 @@ const Home = () => {
               <div className="center" style={{ margin: "100px" }}>
                 <div className="card-btn center "
                 onClick={()=>{
-                  navigate('/saveMessage')
+                  navigate('/sendmessage')
                 }}>Send Message</div>
               </div>
 
-            {context.userType !== 'WORKER'? 
+            {localStorage.getItem('userType') == 'MANAGER'? 
             <div className="colC">
               <div className="center" style={{ margin: "100px" }}>
                 <div className="card-btn center "

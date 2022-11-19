@@ -1,7 +1,7 @@
-import "./AdminHome.scss";
+// import "./AdminHome.scss";
 
-const AdminHome = () => {
+// const AdminHome = () => {
   
-};
+// };
 
-export default AdminHome;
+// export default AdminHome;

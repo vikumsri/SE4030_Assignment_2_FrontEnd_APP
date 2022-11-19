@@ -78,8 +78,7 @@ const UploadFile = () => {
                 setErr(true)
               }
               else {
-                const hashedFile = crypto.AES.encrypt(base64file, '$2a$10$CwTycUXWue0Thq9StjUM0u').toString()
-                context?.UploadFile(hashedFile)
+                context?.UploadFile(base64file)
               }
             }
             }

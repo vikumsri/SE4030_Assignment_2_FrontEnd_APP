@@ -3,9 +3,13 @@ import Context from "../../ContextAPI/Context";
 import './AddStaff.scss';
 import { useNavigate } from 'react-router-dom';
 import bcrypt from 'bcryptjs';
+import validator from 'validator'
 
 function AddStaff() {
     const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('')
+    const [strongMessage, setStrongMessage] = useState('')
+ 
 
   useEffect(()=>{
     if(localStorage.getItem('userType') !== 'ADMIN'){
@@ -20,26 +24,25 @@ function AddStaff() {
 
 
     const handleEmail = (e) => {
-        let userNameValue = e.target.value.trim();
-        setEmail(userNameValue);
-    };
-
-
-    const handleUserType = (type) => {
-
-
-        setUserType(type);
-
-        console.log(userType)
-
-
-
+        let email = e.target.value.trim();
+        setEmail(email);
     };
 
     const handlePassword = (e) => {
-        let passwordValue = e.target.value;
+        let passwordValue = e.target.value.trim();
 
+      if (validator.isStrongPassword(passwordValue, {
+        minLength: 8, minLowercase: 1,
+        minUppercase: 1, minNumbers: 1, minSymbols: 1
+      })) {
+        setStrongMessage('Is Strong Password')
+        setErrorMessage('')
         setPassword(passwordValue);
+      } else {
+        setErrorMessage('Is Not Strong Password')
+        setStrongMessage('')
+        setPassword(passwordValue);
+      }     
 
     };
 
@@ -66,6 +69,7 @@ function AddStaff() {
                                             class="form-control "
                                             id="floatingInput"
                                             placeholder="sample@gmail.com"
+                                            value={email}
                                             onChange={(e) => {
                                                 handleEmail(e)
                                             }}
@@ -110,6 +114,7 @@ function AddStaff() {
                                         <input type={'password'}
                                             class="form-control"
                                             id="floatingInput"
+                                             value={password}
                                             placeholder="password123" required
                                             onChange={(e) => {
                                                 handlePassword(e)
@@ -118,6 +123,20 @@ function AddStaff() {
                                         <label for="floatingInput">Password</label>
 
                                     </div>
+
+                                    {errorMessage === '' ? null :
+                                        <span style={{
+                                        fontWeight: 'bold',
+                                        fontSize:'25px',
+                                        color: 'red',
+                                        }}>{errorMessage}</span>}
+
+{strongMessage === '' ? null :
+                                        <span style={{
+                                        fontWeight: 'bold',
+                                        fontSize:'25px',
+                                        color: 'yellow',
+                                        }}>{strongMessage}</span>}
 
                                 </div>
                             </div>
@@ -130,7 +149,7 @@ function AddStaff() {
                         <div className='center' style={{ marginTop: '30px' }}>
                             <div className='create-btn center '
                                 onClick={() => {
-                                    console.log('wefkujhwiufejhewui')
+                    
                                     setFromError(false);
                                     if(email ==="" || userType ===""|| password === ""){
                                         setFromError(true);
@@ -143,6 +162,10 @@ function AddStaff() {
                                     else {
                                         const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u')
                                         context?.AddStaff(email, userType, hashedPassword)
+                                        setEmail('')
+                                        setPassword('')
+                                        setUserType('')
+                            
                                     }
                                     
                                 }}>

@@ -3,8 +3,8 @@ import axios from "axios";
 import { useState } from "react";
 import config from "../config";
 import { useNavigate } from 'react-router-dom'
-
-
+import bcrypt from 'bcryptjs';
+import crypto from 'crypto-js';
 
 
 const AppProvider = (props) => {
@@ -37,7 +37,7 @@ const AppProvider = (props) => {
             }
             else{
 
-                setUserType(response.data.data.responseData.userType) ;
+                setUserType(response.data.data.responseData.userType);
 
                 setLoginErr(false)
 
@@ -85,6 +85,7 @@ const AppProvider = (props) => {
         }).then((response) =>{
             
             console.log(response)
+            alert("User Created") 
 
             
         })
@@ -95,9 +96,14 @@ const AppProvider = (props) => {
 
 
       const AddMsg =(msg) =>{
-        console.log(msg)
+
+        //using hasedMessage to make a bcrypt hased values to use as the intergirty checker
+        const hashedMessage = crypto.AES.encrypt(msg, '$2a$10$CwTycUXWue0Thq9StjUM0u').toString()
+        const hardHashedMessage = bcrypt.hashSync(hashedMessage, '$2a$10$CwTycUXWue0Thq9StjUM0u')
+
         let data = {
-            "msg": msg,
+            "msg": hashedMessage,
+            "hash": hardHashedMessage,
             "createdBy":localStorage?.getItem("userId")
         }
 
@@ -112,9 +118,9 @@ const AppProvider = (props) => {
             url: "/message/save",
               data: data,
         }).then((response) =>{
-            
-            console.log(response)
+        
 
+            alert("Massage safely saved") 
             
         })
         .catch((error) => {
@@ -124,10 +130,12 @@ const AppProvider = (props) => {
 
       const UploadFile =(file) =>{
 
-        console.log(file)
+        const hashedFile = crypto.AES.encrypt(file, '$2a$10$CwTycUXWue0Thq9StjUM0u').toString()
+        const hardHashedFile = bcrypt.hashSync(hashedFile, '$2a$10$CwTycUXWue0Thq9StjUM0u')
 
         let fileData = {
-            "file": file,
+            "file": hashedFile,
+            "hash":hardHashedFile,
             "createdBy": localStorage?.getItem("userId"),
             "userType": localStorage?.getItem("userType")
         }

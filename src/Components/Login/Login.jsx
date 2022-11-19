@@ -104,7 +104,6 @@ const Login = () => {
                                     else if(email !== "" && password !== ""){
 
                                         if(validateEmail(email)){
-
                                             const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u')
                                              context?.Login(email, hashedPassword)
                                         }else{

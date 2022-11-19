@@ -18,6 +18,8 @@
     "crypto-js": "^4.1.1",
     "firebase": "^9.13.0",
     "jsencrypt": "^3.0.0",
+    "mkcert": "^1.5.1",
+    "nss": "^0.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-cookie": "^4.1.1",
@@ -28,9 +30,8 @@
     "react-scripts": "^5.0.1",
     "sass": "^1.55.0",
     "url-encrypt": "^0.0.5",
-    "web-vitals": "^2.1.4",
-    "mkcert": "^1.5.1",
-    "nss": "^0.0.1"
+    "validator": "^13.7.0",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

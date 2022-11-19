@@ -1,16 +1,23 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import "./SaveMessage.scss";
+import "./SendMessage.scss";
 import crypto from 'crypto-js';
 import Context from "../../ContextAPI/Context";
 
 const SaveMessage = () => {
 
-  const [message, setMessage] = useState(false);
+  const [message, setMessage] = useState('');
+  const [validationErr, setValidationErr] = useState(true);
     
 
     const handleMsg = (e) => {
-        let mag = e.target.value.trim();
-        setMessage(mag);
+        let msg = e.target.value.trim();
+        if (msg.length <= 0 ){
+          setValidationErr(true)
+        }else{
+          setMessage(msg);
+          setValidationErr(false)
+        }
+        
     };
 
   return (
@@ -18,7 +25,7 @@ const SaveMessage = () => {
             {(context) => (
     <div className="base-container center">
       <div className="form-container-wh ">
-        <div className="center title">Save Message</div>
+        <div className="center title">Send Message</div>
 
         <div style={{ marginTop: "30px", width: "100%" }}>
           <textarea
@@ -27,16 +34,22 @@ const SaveMessage = () => {
             placeholder="Message"
             id="floatingInput"
             rows="5"
+            value={message}
             onChange={(e) => {
               handleMsg(e)
           }}
           />
         </div>
 
+        {validationErr ?
+          <div className="validation-txt-upload">Empty messages cannot be saved</div> : ''}
+
         <div className="center" style={{ marginTop: "30px" }}>
           <div className="send-btn center "onClick={() => {
-            const hashedMessage = crypto.AES.encrypt(message, '$2a$10$CwTycUXWue0Thq9StjUM0u').toString()
-            context?.AddMsg(hashedMessage)
+            if(!validationErr){
+              context?.AddMsg(message)
+            setMessage('');
+            }
           }}>Send Message</div>
         </div>
       </div>
